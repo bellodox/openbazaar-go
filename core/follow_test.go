@@ -52,7 +52,7 @@ func TestOpenBazaarFollow_UpdateFollow(t *testing.T) {
 	}
 	follower_bytes, err := core.ConnectionsToBytes(followers)
 	test_bytes := []uint8{91, 10, 32, 32, 32, 32, 123, 10, 32, 32, 32, 32, 32, 32, 32, 32, 34, 112, 101, 101, 114, 73, 100, 34, 58, 32, 34, 81, 109, 84, 69, 83, 84, 34, 44, 10, 32, 32, 32, 32, 32, 32, 32, 32, 34, 112, 114, 111, 111, 102, 34, 58, 32, 34, 89, 110, 108, 48, 90, 88, 77, 61, 34, 10, 32, 32, 32, 32, 125, 10, 93}
-	if !EqualSlices(follower_bytes, test_bytes) {
+	if string(follower_bytes) != string(test_bytes) {
 		t.Fail()
 	}
 
@@ -61,21 +61,8 @@ func TestOpenBazaarFollow_UpdateFollow(t *testing.T) {
 	}
 	following_bytes, err := core.ConnectionsToBytes(following)
 	test_bytes = []uint8{91, 10, 32, 32, 32, 32, 34, 81, 109, 84, 69, 83, 84, 34, 10, 93}
-	if !EqualSlices(following_bytes, test_bytes) {
+	if string(following_bytes) != string(test_bytes) {
 		fmt.Println(following_bytes)
 		t.Fail()
 	}
-}
-
-func EqualSlices(a, b []uint8) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
 }
