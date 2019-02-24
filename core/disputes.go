@@ -455,6 +455,9 @@ func (n *OpenBazaarNode) ProcessDisputeOpen(rc *pb.RicardianContract, openerPeer
 		// Build dispute update message
 		payoutAddress := wal.CurrentAddress(wallet.EXTERNAL).EncodeAddress()
 		updateMessage, err := GetDisputeUpdateMessage(localContract, orderID, payoutAddress, txRecords)
+		if err != nil {
+			return err
+		}
 
 		// Send the message
 		err = n.SendDisputeUpdate(moderator, updateMessage)
@@ -491,6 +494,9 @@ func (n *OpenBazaarNode) ProcessDisputeOpen(rc *pb.RicardianContract, openerPeer
 		// Build dispute update message
 		payoutAddress := wal.CurrentAddress(wallet.EXTERNAL).EncodeAddress()
 		updateMessage, err := GetDisputeUpdateMessage(localContract, orderID, payoutAddress, txRecords)
+		if err != nil {
+			return err
+		}
 
 		// Send the message
 		err = n.SendDisputeUpdate(moderator, updateMessage)
