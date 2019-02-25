@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	libp2p "gx/ipfs/QmPvyPwuCgJ7pDmrKDxRtsScJgBaM5h4EpRL2qQJsmXf4n/go-libp2p-crypto"
 	"gx/ipfs/QmTRhk7cgjUf2gfQ3p2M9KPECNZEW9XUrmHcFCgog4cPgB/go-libp2p-peer"
 
@@ -966,7 +967,7 @@ func (n *OpenBazaarNode) verifySignatureOnDisputeResolution(contract *pb.Ricardi
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	pubkey, err := n.IpfsNode.Routing.(*dht.IpfsDHT).GetPublicKey(ctx, moderatorID)
+	pubkey, err := n.DHT.GetPublicKey(ctx, moderatorID)
 	if err != nil {
 		log.Errorf("Failed to find public key for %s", moderatorID.Pretty())
 		return err
